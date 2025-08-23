@@ -1,0 +1,23 @@
+{
+	"recommendations": [
+		// 📝 Formatting & Linting
+		"biomejs.biome",
+
+		// 🐳 Containers & DevOps
+		"ms-azuretools.vscode-docker", // Docker - Manage containers inside VS Code
+
+		// 🚨 Error & Debugging Helpers
+		"usernamehw.errorlens", // Error Lens - Show errors/warnings inline
+		"YoavBls.pretty-ts-errors", // Pretty TS Errors - Friendlier TypeScript error messages
+
+		// 🌳 Git & Collaboration
+		"mhutchie.git-graph", // Git Graph - Visualize git history/branches
+		"GitHub.copilot", // GitHub Copilot - AI coding assistant
+		"GitHub.copilot-chat", // GitHub Copilot Chat - AI pair programmer
+
+		// 🔍 IntelliSense & Developer Experience
+		"christian-kohler.path-intellisense", // Path Intellisense - Autocomplete for file paths
+		"PKief.material-icon-theme", // Material Icon Theme - Pretty icons for files/folders
+		"AykutSarac.jsoncrack-vscode" // JSON Crack - Visualize JSON as interactive graphs
+	]
+}
