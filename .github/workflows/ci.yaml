@@ -15,7 +15,7 @@ jobs:
 
       # 2. install bun
       - name: Setup Bun
-        uses: oven-sh/bun-action@v2
+        uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
       # 3. install dependencies
