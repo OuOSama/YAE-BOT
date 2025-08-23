@@ -1,0 +1,37 @@
+{
+	"compilerOptions": {
+		// ⚡ Module & Target
+		"module": "CommonJS", // 📦 use CommonJS modules (Node.js style)
+		"target": "ESNext", // 🚀 compile to latest JS features
+		"moduleResolution": "node", // 🔍 resolve modules like Node.js
+
+		// 🛡️ Strict Type Checking
+		"strict": true, // ✅ enable all strict type-checking options
+		"noImplicitAny": true, // ❌ prevent variables from having 'any' type
+		"strictNullChecks": true, // 🚫 enforce explicit null/undefined checks
+		"strictFunctionTypes": true, // 🧩 check function type compatibility
+		"noImplicitThis": true, // ⚠️ catch unsafe 'this' usage
+		"noUnusedLocals": true, // 👻 warn about unused local variables
+		"noUnusedParameters": true, // 📝 warn about unused function parameters
+		"noImplicitReturns": true, // 🔄 ensure all code paths return something
+		"skipLibCheck": true, // 📚 skip checking type defs from libraries
+		"noErrorTruncation": true, // 🖥️ show full TypeScript errors
+
+		// ✨ Interop & Decorators
+		"esModuleInterop": true, // 🔗 allow default import from CommonJS modules
+		"experimentalDecorators": true, // 🏷️ enable decorator syntax
+		"emitDecoratorMetadata": true, // 🧬 emit metadata for decorators
+
+		// ⚙️ Constants & Internal
+		"preserveConstEnums": true, // 🔒 keep const enums in emitted code
+		"stripInternal": true, // ✂️ remove internal code marked with @internal
+
+		// 📂 Project Structure
+		"outDir": "./build", // 🏗️ output compiled JS here
+		"rootDir": "src", // 🌱 root of source TS files
+		"baseUrl": ".", // 🛤️ base path for module resolution
+		"typeRoots": ["node_modules/@types", "src/types"] // 📦 where TS looks for types
+	},
+	"exclude": ["node_modules"], // 🚫 don't compile node_modules
+	"include": ["src/**/*"] // 📁 include all TS files in src folder
+}
