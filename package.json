@@ -1,0 +1,35 @@
+{
+	"name": "yae-bot",
+	"author": "OuOSama",
+	"type": "module",
+	"private": true,
+	"devDependencies": {
+		"@biomejs/biome": "2.2.2",
+		"@types/bun": "latest",
+		"husky": "^9.1.7",
+		"lint-staged": "^16.1.5"
+	},
+	"peerDependencies": {
+		"typescript": "^5.9.2"
+	},
+	"dependencies": {
+		"riffy": "^1.0.7",
+		"seyfert": "^3.2.6"
+	},
+	"scripts": {
+		"dev": "bun run ./src/app.ts",
+		"lavalink-setup": "docker-compose --env-file ./.env.local -f ./lavalink/compose.yml up -d",
+		"check": "bunx biome check --write",
+		"prepare": "bunx husky"
+	},
+	"lint-staged": {
+		"*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}": [
+			"biome format --write --no-errors-on-unmatched",
+			"biome lint --write --no-errors-on-unmatched"
+		],
+		"*": [
+			"biome check --no-errors-on-unmatched --files-ignore-unknown=true"
+		]
+	},
+	"license": "MIT"
+}
