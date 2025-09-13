@@ -61,7 +61,7 @@ SECURE      = false
 
 and then
 ```bash
-bun lavalink-setup
+bun run lavalink-setup
 ```
 
 <div align="center">
@@ -111,8 +111,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 🙏 Acknowledgments
 
-- Thanks to the Lavalink team for the amazing audio server
-- Seyfert community for the excellent documentation
+- Thanks to the [Lavalink team](https://github.com/lavalink-devs) for the amazing audio server
+- Seyfert [community](https://discord.com/invite/hEeJNaSqnS) for the excellent documentation
 - All contributors who help improve Yae
 
 <div align="center">
