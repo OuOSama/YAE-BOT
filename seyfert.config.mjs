@@ -6,6 +6,7 @@ export default config.bot({
 		base: 'src', // replace with "src" if using bun
 		commands: 'commands',
 		events: 'events',
+		components: 'components',
 	},
 	intents: [
 		'Guilds',
