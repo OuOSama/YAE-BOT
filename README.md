@@ -56,7 +56,6 @@ TOKEN       = your_discord_bot_token
 HOST        = localhost
 PASSWORD    = youshallnotpass
 PORT        = 2333
-SECURE      = false
 ```
 
 and then
