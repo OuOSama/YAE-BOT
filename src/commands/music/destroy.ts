@@ -5,9 +5,9 @@ import { client } from 'src/app'
 
 @Declare({
 	name: 'destroy',
-	description: 'destroy current music player',
+	description: '💥 Destroy the current music player',
 })
-export default class PauseMusic extends Command {
+export default class DestroyPlayer extends Command {
 	async run(ctx: CommandContext) {
 		// Player
 		const player = client.riffy.get(ctx.guildId as string)
