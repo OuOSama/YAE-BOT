@@ -14,17 +14,17 @@ import { loadTracks } from 'src/managers/loadTracks'
 
 const option = {
 	url: createStringOption({
-		description: 'song URL',
+		description: 'song URL, or search automatically if no link is provided',
 		required: true,
 	}),
 }
 
 @Declare({
 	name: 'play',
-	description: 'play a song',
+	description: '▶️ Play a song',
 })
 @Options(option)
-export default class Play extends Command {
+export default class PlayMusic extends Command {
 	async run(ctx: CommandContext<typeof option>) {
 		// ✅ Check if Riffy is initialized before doing anything
 		if (!client.riffy.initiated) {
