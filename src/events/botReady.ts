@@ -10,7 +10,7 @@ export default createEvent({
 		client.riffy.init(client.botId)
 		// check Riffy was init?
 		if (client.riffy.initiated) {
-			client.logger.info('INIT SUCCESS!')
+			client.logger.info('✅ INIT Lavalink client SUCCESS!')
 		}
 		//  We can use client.logger to display messages in the console.
 		client.logger.info(`${user.username} is ready`)
