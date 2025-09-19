@@ -5,7 +5,7 @@ import { client } from 'src/app'
 
 @Declare({
 	name: 'pause',
-	description: 'pause current song',
+	description: '⏸️ Pause the current song',
 })
 export default class PauseMusic extends Command {
 	async run(ctx: CommandContext) {
