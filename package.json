@@ -14,8 +14,7 @@
 	},
 	"dependencies": {
 		"riffy": "^1.0.7",
-		"seyfert": "^3.2.6",
-		"zod": "^4.1.9"
+		"seyfert": "^3.2.6"
 	},
 	"scripts": {
 		"dev": "bun run ./src/app.ts",
