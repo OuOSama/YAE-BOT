@@ -1,6 +1,7 @@
 // src/commands/music/pause.ts
 
 import { Command, type CommandContext, Declare } from 'seyfert'
+import { MessageFlags } from 'seyfert/lib/types'
 import { client } from 'src/app'
 
 @Declare({
@@ -12,6 +13,9 @@ export default class PauseMusic extends Command {
 		// Player
 		const player = client.riffy.get(ctx.guildId as string)
 		player.pause(true)
-		await ctx.write({ content: 'Song has pause' })
+		await ctx.write({
+			content: 'Song has pause',
+			flags: MessageFlags.Ephemeral,
+		})
 	}
 }
