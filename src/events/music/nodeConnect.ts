@@ -1,8 +1,7 @@
 // src/events/music/nodeConnect.ts
 
-import type { Node, RiffyEvents } from 'riffy'
 import { client } from 'src/app'
 
-client.riffy.on('nodeConnect' as keyof RiffyEvents, (node: Node) => {
+client.riffy.on('nodeConnect', (node) => {
 	client.logger.info(`✅ Lavalink Server: "${node.name}" connected.`)
 })
