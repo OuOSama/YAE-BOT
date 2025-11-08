@@ -27,7 +27,7 @@
 		"stripInternal": true, // ✂️ remove internal code marked with @internal
 
 		// 📂 Project Structure
-		"outDir": "./build", // 🏗️ output compiled JS here
+		"outDir": "./build/src", // 🏗️ output compiled JS here
 		"rootDir": "src", // 🌱 root of source TS files
 		"baseUrl": ".", // 🛤️ base path for module resolution
 		"typeRoots": ["node_modules/@types", "src/types"] // 📦 where TS looks for types
