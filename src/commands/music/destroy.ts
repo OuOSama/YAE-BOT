@@ -1,17 +1,17 @@
-// src/commands/music/destroy.ts
+// src/commands/music/leave.ts
 
 import { Command, type CommandContext, Declare } from 'seyfert'
 import { MessageFlags } from 'seyfert/lib/types'
-import { client } from 'src/app'
 
 @Declare({
-	name: 'destroy',
-	description: '💥 Destroy the current music player',
+	name: 'leave',
+	description: '💥 leave from vc',
 })
 export default class DestroyPlayer extends Command {
 	async run(ctx: CommandContext) {
 		// Player
-		const player = client.riffy.get(ctx.guildId as string)
+		if (!ctx.guildId) return
+		const player = ctx.client.riffy.get(ctx.guildId)
 		player.destroy()
 		await ctx.write({
 			content: 'music player has destroy',

@@ -5,7 +5,7 @@ import { type APIApplicationCommand, MessageFlags } from 'seyfert/lib/types'
 
 @Declare({
 	name: 'help',
-	description: '📖 Show bot info',
+	description: '📖 Show bot info.',
 	guildId: ['1397230532533817459'],
 })
 export default class HelpCommand extends Command {
