@@ -1,6 +1,6 @@
 // src/types/music.d.ts
 
-import type { Riffy, Player, Track, RiffyEvents } from 'riffy'
+import type { Player, Riffy, RiffyEvents, Track } from 'riffy'
 
 interface TrackPayload {
 	[key: string]: unknown
