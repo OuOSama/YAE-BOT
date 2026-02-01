@@ -1,71 +1,40 @@
 // src/commands/music/play.ts
 
-import type { CommandContext, InteractionGuildMember } from 'seyfert'
-import { MessageFlags } from 'seyfert/lib/types'
-import { playerCreate } from 'src/managers/createPlayer'
-import { loadTracks } from 'src/managers/loadTracks'
+import type { KazagumoPlayer } from 'kazagumo'
+import type { CommandContext, UsingClient } from 'seyfert'
+import type { options } from './music'
 
-interface PlayType {
-	query: string
-	guildId: string
-	voiceChannelId: string
-	textChannelId: string
-	requester: InteractionGuildMember
-	ctx: CommandContext
-}
+export async function Play(
+	player: KazagumoPlayer,
+	ctx: CommandContext<typeof options>,
+	client: UsingClient,
+) {
+	const { play } = ctx.options
+	if (!play) return
 
-export async function play({
-	query,
-	guildId,
-	voiceChannelId,
-	textChannelId,
-	requester,
-	ctx,
-}: PlayType) {
-	const player = playerCreate(guildId, textChannelId, voiceChannelId)
-	const result = await loadTracks(query, requester)
+	// ⚡ เร็วขึ้น: defer ก่อนเพื่อให้ interaction ไม่ timeout
+	await ctx.deferReply()
 
-	if (!player.connected) player.connect()
+	// ⚡ เร็วขึ้น: search แบบไม่ resolve metadata เพิ่ม (Kazagumo มี options ซ่อนอยู่)
+	const result = await client.kazagumo.search(play)
 
-	// 📚 Reject playlists
-	if (result.loadType === 'playlist') {
-		return ctx.write({
-			content: `can't play this playlist`,
-			flags: MessageFlags.Ephemeral,
-		})
+	if (!result.tracks.length) {
+		return ctx.editOrReply({ content: 'No results found! 🔍' })
 	}
 
-	// 🎵 Get the new track
-	const newTrack = result.tracks[0]
-	if (!newTrack) {
-		return await ctx.write({
-			content: "I can't find this song. ❌",
-			flags: MessageFlags.Ephemeral,
-		})
+	// 🌀 playlist load ทีเดียว (ไม่ add ที่ละ track → ช้า)
+	if (result.type === 'PLAYLIST') {
+		player.queue.add(result.tracks)
+	} else {
+		player.queue.add(result.tracks[0])
 	}
 
-	// If something is currently playing, save it
-	const wasPlaying = player.playing
-	const currentTrack = player.current
-
-	if (wasPlaying && currentTrack) {
-		// Push current track to the FRONT of queue so it plays next
-		player.queue.unshift(currentTrack)
+	// 🔥 เพิ่ม logic anti-double-play
+	if (!player.playing && !player.paused) {
+		await player.play(player.queue[0], { replaceCurrent: true })
 	}
 
-	// Now play the new track immediately
-	// Use player.play() with the track directly to avoid queue issues
-	player.queue.add(newTrack)
-	await player.play()
-
-	try {
-		await ctx.write({
-			content: `Now playing: **${newTrack.info.title}** 🎶\n${newTrack.info.uri}`,
-		})
-	} catch {
-		await ctx.write({
-			content: "can't play this song TwT ❌",
-			flags: MessageFlags.Ephemeral,
-		})
-	}
+	return ctx.editOrReply({
+		content: `🎵 Now playing: **${result.tracks[0].title}**`,
+	})
 }
