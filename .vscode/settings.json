@@ -1,16 +1,7 @@
 {
-	// 🖱️✨ Enables smooth scrolling inside the editor
+	// ✨ VS Code Settings
 	"editor.smoothScrolling": true,
-
-	// 📜🧈 Enables smooth scrolling in lists (Explorer, Search, Terminal, etc.)
-	"workbench.list.smoothScrolling": true,
-
-	// 🔥| Sets cursor blinking animation style to "expand" (grows/shrinks while blinking)
-	"editor.cursorBlinking": "expand",
-
-	// 🪄➡️ Makes the caret move smoothly (animated) instead of instantly jumping
-	"editor.cursorSmoothCaretAnimation": "on",
-
-	// 📝 Format and linting
-	"editor.defaultFormatter": "biomejs.biome"
+	"editor.mouseWheelScrollSensitivity": 6,
+	"editor.fastScrollSensitivity": 5,
+	"editor.cursorSmoothCaretAnimation": "on"
 }
