@@ -1,3 +1,5 @@
+// src/scripts/remove_commands.ts
+
 import { Client } from 'seyfert'
 
 const client = new Client()
