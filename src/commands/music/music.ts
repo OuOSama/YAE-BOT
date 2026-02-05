@@ -9,11 +9,14 @@ import {
 	Options,
 } from 'seyfert'
 import { MessageFlags } from 'seyfert/lib/types'
-import { play } from './play'
+import { Leave } from './leave'
+import { Pause } from './pause'
+import { Play } from './play'
+import { Resume } from './resume'
 
 export const options = {
 	play: createStringOption({
-		description: 'Play a song from URL instantly',
+		description: 'Play a song from URL or search instantly',
 	}),
 	pause: createBooleanOption({
 		description: 'Pause current song',
@@ -34,68 +37,55 @@ export const options = {
 @Options(options)
 export default class MusicManager extends Command {
 	async run(ctx: CommandContext<typeof options>) {
-		// check voice state and get query
-		const query = ctx.options.play
-		const member = ctx.member
-		const guildId = ctx.guildId
-		const textChannelId = ctx.channelId
+		const { client, guildId, channelId, member } = ctx
+		const { play, pause, resume, leave } = ctx.options
 
-		if (!member || !guildId || !query) {
-			return ctx.write({ content: 'member or guild or query not found' })
+		if (!member || !guildId) {
+			return ctx.write({ content: 'Member or guild not found. 👻' })
 		}
 
-		const voiceState = ctx.client.cache.voiceStates?.get(member?.id, guildId)
-		if (!voiceState) {
+		// ❤️ voice state
+		const voice = ctx.client.cache.voiceStates?.get(member.id, guildId)
+		const voiceId = voice?.channelId
+		if (!voiceId) {
 			return ctx.write({
-				content: 'Ehh, join the VC (voice chat) first..',
+				content: 'You must be in a voice channel to play music. 🎵',
 				flags: MessageFlags.Ephemeral,
 			})
 		}
 
-		const voiceChannelId = voiceState.channelId
-		if (!voiceChannelId) return ctx.client.logger.warn('No Voice Channel ID')
+		// ⚡ re-use player
+		let player = client.kazagumo.players.get(guildId)
 
-		// Determine which action was triggered
-		const action = ctx.options.play
-			? 'play'
-			: ctx.options.pause
-				? 'pause'
-				: ctx.options.resume
-					? 'resume'
-					: ctx.options.leave
-						? 'leave'
-						: null
-
-		switch (action) {
-			case 'play':
-				await play({
-					query,
+		if (!player) {
+			try {
+				player = await client.kazagumo.createPlayer({
 					guildId,
-					voiceChannelId,
-					textChannelId,
-					requester: member,
-					ctx,
+					textId: channelId,
+					voiceId,
+					volume: 100,
 				})
-				break
-
-			case 'pause':
-				// TODO: implement pause logic
-				await ctx.write({ content: '⏸️ Pausing playback...' })
-				break
-
-			case 'resume':
-				// TODO: implement resume logic
-				await ctx.write({ content: '▶️ Resuming playback...' })
-				break
-
-			case 'leave':
-				// TODO: implement leave logic
-				await ctx.write({ content: '👋 Leaving voice channel...' })
-				break
-
-			default:
-				await ctx.write({ content: '⚠️ Please specify an action!' })
-				break
+			} catch (error) {
+				console.error('Failed to create player:', error)
+				return ctx.write({
+					content: 'Failed to connect to voice channel. Try again! 😭',
+					flags: MessageFlags.Ephemeral,
+				})
+			}
 		}
+
+		// 🔥 Actions
+		if (play) return Play(player, ctx, client)
+
+		if (pause) return Pause(player, ctx)
+
+		if (leave) return Leave(player, ctx)
+
+		if (resume) return Resume(player, ctx)
+
+		return ctx.write({
+			content: 'Please specify an action! 🎶',
+			flags: MessageFlags.Ephemeral,
+		})
 	}
 }
