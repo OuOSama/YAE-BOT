@@ -20,7 +20,6 @@ const option = {
 @Declare({
 	name: 'ai',
 	description: 'All Ai features',
-	guildId: ['1397230532533817459'],
 })
 @Options(option)
 export default class Ai extends Command {

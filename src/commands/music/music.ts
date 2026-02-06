@@ -32,7 +32,6 @@ export const options = {
 @Declare({
 	name: 'music',
 	description: 'All Music Functions',
-	guildId: ['1397230532533817459'],
 })
 @Options(options)
 export default class MusicManager extends Command {
