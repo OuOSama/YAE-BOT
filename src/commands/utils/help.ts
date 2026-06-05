@@ -1,4 +1,4 @@
-// src/commands/help.ts
+// src/commands/utils/help.ts
 
 import { Command, type CommandContext, Declare, Embed } from 'seyfert'
 import { type APIApplicationCommand, MessageFlags } from 'seyfert/lib/types'
