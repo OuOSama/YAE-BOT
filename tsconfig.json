@@ -1,9 +1,9 @@
 {
 	"compilerOptions": {
 		// ⚡ Module & Target
-		"module": "CommonJS", // 📦 use CommonJS modules (Node.js style)
-		"target": "ESNext", // 🚀 compile to latest JS features
-		"moduleResolution": "node", // 🔍 resolve modules like Node.js
+		"module": "esnext", // 📦 use CommonJS modules (Node.js style)
+		"target": "esnext", // 🚀 compile to latest JS features
+		"moduleResolution": "bundler", // 🔍 resolve modules like Node.js
 
 		// 🛡️ Strict Type Checking
 		"strict": true, // ✅ enable all strict type-checking options
@@ -16,6 +16,7 @@
 		"noImplicitReturns": true, // 🔄 ensure all code paths return something
 		"skipLibCheck": true, // 📚 skip checking type defs from libraries
 		"noErrorTruncation": true, // 🖥️ show full TypeScript errors
+		"types": ["bun"], // 🐎 include Bun global types
 
 		// ✨ Interop & Decorators
 		"esModuleInterop": true, // 🔗 allow default import from CommonJS modules
@@ -29,7 +30,10 @@
 		// 📂 Project Structure
 		"outDir": "./build/src", // 🏗️ output compiled JS here
 		"rootDir": "src", // 🌱 root of source TS files
-		"baseUrl": ".", // 🛤️ base path for module resolution
+		"paths": {
+			"@/*": ["./src/*"]
+		}, // 🛤️ base path for module resolution
+
 		"typeRoots": ["node_modules/@types", "src/types"] // 📦 where TS looks for types
 	},
 	"exclude": ["node_modules"], // 🚫 don't compile node_modules
