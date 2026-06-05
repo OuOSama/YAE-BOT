@@ -3,7 +3,7 @@
 import { Kazagumo } from 'kazagumo'
 import { Connectors } from 'shoukaku'
 
-import { client } from 'src/app'
+import { client } from '@/app'
 
 export default function createKazagumo(): Kazagumo {
 	const kazagumo = new Kazagumo(
