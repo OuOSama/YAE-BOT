@@ -32,3 +32,12 @@
 ## Common pitfalls
 - The `remove-commands` script currently points to `src/script/remove_commandst.ts`, but the actual folder in this repo is `src/scripts/`. Verify paths before running maintenance scripts.
 - Keep command and event changes minimal and consistent with the existing structure to avoid breaking Seyfert’s command discovery.
+
+## Available agent and skill
+- Agent: [.github/agents/seyfert.agent.md](.github/agents/seyfert.agent.md)
+  - Name: seyfert
+  - Purpose: use this agent for Seyfert bot code, decorators, command patterns, and framework-specific errors.
+
+- Skill: [.github/skills/seyfert-docs/SKILL.md](.github/skills/seyfert-docs/SKILL.md)
+  - Name: seyfert-docs
+  - Purpose: consult the official Seyfert documentation before making assumptions or changing framework-related code.
