@@ -21,7 +21,7 @@ export default class HelpCommand extends Command {
 			.setTitle('📖  Command List')
 			.setColor(0x00ffff)
 			.setDescription(
-				'```\n ⚙️Commands   | 📑Descriptions\n--------------|---------------------------\n' +
+				'```\n ⚙️Commands   | 📑Descriptions\n--------------|----------------\n' +
 					commandsList
 						.map((c) => `/${c.name.padEnd(12)} | ${c.description}`)
 						.join('\n') +
