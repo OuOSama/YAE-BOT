@@ -1,21 +1,15 @@
 // src/commands/utils/help.ts
 
 import { Command, type CommandContext, Declare, Embed } from 'seyfert'
-import { type APIApplicationCommand, MessageFlags } from 'seyfert/lib/types'
-
+import { MessageFlags } from 'seyfert/lib/types'
+import { getCommandList } from '@/functions/getCommandList/getCommandList'
 @Declare({
 	name: 'help',
 	description: '📖 Show bot info.',
 })
 export default class HelpCommand extends Command {
 	async run(ctx: CommandContext) {
-		// get commands.json data
-		const raw = await Bun.file('commands.json').text()
-		const json: APIApplicationCommand[] = JSON.parse(raw)
-		const commandsList = json.map((cmd) => ({
-			name: cmd.name,
-			description: cmd.description,
-		}))
+		const commandsList = await getCommandList(ctx.client)
 
 		const embed = new Embed()
 			.setTitle('📖  Command List')
