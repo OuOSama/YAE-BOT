@@ -1,5 +1,4 @@
-
-![YAE Bot](assets/YAE.png)
+![YAE Bot](assets/YAE.svg)
 
 ## 🌐 Overview
 
@@ -53,6 +52,12 @@ src/
 | Kazagumo + Shoukaku | Lavalink music playback support |
 | Biome | Formatting and linting |
 
+## 📋 Prerequisites
+   - 😸 **[Git](https://git-scm.com/)** – Version Control
+   - ⚡ **[Bun](https://bun.sh/)** – super fast JavaScript/TypeScript runtime
+   - 🐳 **[Docker](https://www.docker.com/)**(optional) – required for running Lavalink audio server
+   - 🔑 **Discord Bot [Token](https://discord.com/developers/home)** – create a bot in Discord Developer Portal
+
 ## 📥 Installation
 
 1. Clone the repository:
@@ -89,6 +94,9 @@ src/
    # Repository: https://github.com/OuOSama/YAE-BACKEND
    BACKEND_URL         = "http://localhost:3001"           # 🛡️ URL of our Elysia backend (HTTP)
    BACKEND_WS_URL      = "ws://localhost:3001"             # 🎯 URL of our Elysia backend (WebSocket)
+
+   # External
+   GEMINI_API_KEY      = https://aistudio.google.com/
    ```
 
 ## ▶️ Running the Bot
