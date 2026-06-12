@@ -2,13 +2,20 @@
 
 declare module 'bun' {
 	interface Env {
-		// 🌙 Lunar ✨
+		// 🌙 Application token
 		TOKEN: string
 
 		// 🎵 Lavalink
-		HOST: string
-		PASSWORD: string
-		PORT: number
-		SECURE?: boolean
+		LAVALINK_NAME: string
+		LAVALINK_HOST: string
+		LAVALINK_PASSWORD: string
+		LAVALINK_SECURE: boolean
+
+		// Backend
+		BACKEND_URL: string
+		BACKEND_WS_URL: string
+
+		// External
+		GEMINI_API_KEY: string
 	}
 }

@@ -1,10 +1,19 @@
 // src/app.ts
 
 import { Client } from 'seyfert'
-import { createManager } from './managers/createManager'
+import createKazagumo from '@/managers/createKazagumo.js'
 
-const client = new Client()
-client.riffy = createManager()
+const client = new Client({
+	commands: {
+		prefix: () => {
+			// here you can handle whatever prefixes you want depending on the message data.
+			return ['!', '?', '.']
+		},
+	},
+})
+
+//Basic configuration, perfect for this case
+client.kazagumo = createKazagumo()
 
 client
 	.start()

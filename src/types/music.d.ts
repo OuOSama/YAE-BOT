@@ -1,12 +1,13 @@
 // src/types/music.d.ts
 
-import type { Riffy } from 'riffy'
+import type { Kazagumo } from 'kazagumo'
 
 declare module 'seyfert' {
-	interface Client {
-		riffy: Riffy
-	}
 	interface UsingClient {
-		riffy: Riffy
+		kazagumo: Kazagumo
+	}
+
+	interface Client {
+		kazagumo: Kazagumo
 	}
 }

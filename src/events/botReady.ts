@@ -7,11 +7,6 @@ export default createEvent({
 	// `once` ensures the event runs only once.
 	data: { once: true, name: 'botReady' },
 	run(user, client) {
-		client.riffy.init(client.botId)
-		// check Riffy was init?
-		if (client.riffy.initiated) {
-			client.logger.info('INIT SUCCESS!')
-		}
 		//  We can use client.logger to display messages in the console.
 		client.logger.info(`${user.username} is ready`)
 	},

@@ -1,17 +1,9 @@
 // src/commands/music/resume.ts
 
-import { Command, type CommandContext, Declare } from 'seyfert'
-import { client } from 'src/app'
+import type { KazagumoPlayer } from 'kazagumo'
+import type { CommandContext } from 'seyfert/lib/commands'
 
-@Declare({
-	name: 'resume',
-	description: 'resume current song',
-})
-export default class PauseMusic extends Command {
-	async run(ctx: CommandContext) {
-		// Player
-		const player = client.riffy.get(ctx.guildId as string)
-		player.pause(false)
-		await ctx.write({ content: 'Song has pause' })
-	}
+export async function Resume(player: KazagumoPlayer, ctx: CommandContext) {
+	player.pause(false)
+	return ctx.write({ content: '▶️ Resumed.' })
 }

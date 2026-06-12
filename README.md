@@ -1,120 +1,135 @@
-![Logo](assets/YAE.png)
+![YAE Bot](assets/YAE.svg)
 
-<div align="center">
-  <img src="https://img.shields.io/github/license/OuOSama/YAE-BOT" alt="License">
-  <img src="https://img.shields.io/github/stars/OuOSama/YAE-BOT" alt="Stars">
-</div>
+## 🌐 Overview
 
+YAE-BOT is a lightweight Discord companion built with Bun & Seyfert.
 
-🦊 “YAE — Your All-in-one Discord Music Companion” 🌸
+### 📁 Project Structure
 
-### 📋 Prerequisites
-Before awake Yae, make sure you have the following installed:
-- 😸 **[Git](https://git-scm.com/)** – Version Control
-- ⚡ **[Bun](https://bun.sh/)** – super fast JavaScript/TypeScript runtime
-- 🐳 **[Docker](https://www.docker.com/)** – required for running Lavalink audio server
-- 🔑 **Discord Bot [Token](https://discord.com/developers/docs/intro)** – create a bot in Discord Developer Portal
-
-## 🚀 Getting Started
-
-### 💻 Installation
-
-Clone the project
-
-```bash
-git clone https://github.com/OuOSama/YAE-BOT.git yae
+```text
+src/
+├── app.ts                 # Starts the bot and uploads slash commands
+├── commands/              # Slash command modules for AI, music, and utilities
+│   ├── ai/                # AI-related command handlers
+│   ├── music/             # Music playback commands
+│   └── utils/             # Helper commands such as /help
+├── events/                # Bot and music event listeners
+├── managers/              # Shared logic like Lavalink setup
+├── scripts/               # Maintenance scripts
+└── types/                 # TypeScript env and music declarations
 ```
 
-Go to the project directory
+## ✨ Features
 
-```bash
-cd yae
-```
+### General
 
-Install dependencies
+| Command | Description |
+| --- | --- |
+| `/help` | Show available slash commands and bot info |
 
-```bash
-bun install
-```
+### AI
 
-<div align="center">
-    <h1>Setup Lavalink and Yae</h1>
-</div>
+| Command | Description |
+| --- | --- |
+| `/ai chat <message>` | Send a prompt to the connected AI backend |
 
-## 📝 Configuration
-To run this project, copy `.env.example` into the **root project directory** and rename it to `.env.local`.
+### Music
 
-> ⚠️ **Important:** Make sure to fill in all required values inside `.env.local` before running the project.
+| Command | Description |
+| --- | --- |
+| `/music play <query-or-url>` | Search for and play a song |
+| `/music pause` | Pause the current track |
+| `/music resume` | Resume playback |
+| `/music leave` | Disconnect the bot from the voice channel |
 
-Make sure your `.env.local` contains:
+## 🛠️ Tech Stack
 
-```env
-# 🔑 Discord Bot Token
-TOKEN       = your_discord_bot_token
+| Tool / Library | Purpose |
+| --- | --- |
+| Bun | Runtime and package management |
+| TypeScript | Main programming language |
+| Seyfert | Discord bot framework |
+| Kazagumo + Shoukaku | Lavalink music playback support |
+| Biome | Formatting and linting |
 
-# 🎵 Lavalink Config
-HOST        = localhost
-PASSWORD    = youshallnotpass
-PORT        = 2333
-SECURE      = false
-```
+## 📋 Prerequisites
+   - 😸 **[Git](https://git-scm.com/)** – Version Control
+   - ⚡ **[Bun](https://bun.sh/)** – super fast JavaScript/TypeScript runtime
+   - 🐳 **[Docker](https://www.docker.com/)**(optional) – required for running Lavalink audio server
+   - 🔑 **Discord Bot [Token](https://discord.com/developers/home)** – create a bot in Discord Developer Portal
 
-and then
-```bash
-bun run lavalink-setup
-```
+## 📥 Installation
 
-<div align="center">
-    <h1>Awake YAE!</h1>
-</div>
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/OuOSama/YAE-BOT.git
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   bun install
+   ```
+
+3. Create your environment file:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+4. Create or update your `.env` file with the following values:
+
+   ```dotenv
+   # 🔑 Discord Bot Token
+   TOKEN               = REPLACE_WITH_YOUR_BOT_TOKEN_HERE
+
+   # 🎵 Lavalink Config
+   LAVALINK_NAME                = Node                     # 🔥Node,Server, etc...
+   LAVALINK_HOST                = localhost:2333           # 🌍 host (localhost / IP) ex: localhost:2333
+   LAVALINK_PASSWORD            = your_lavalink_password   # 🔒 Lavalink password
+   LAVALINK_SECURE              = true                     # ❎ true/false
+
+   # 😎 Backend
+   # Repository: https://github.com/OuOSama/YAE-BACKEND
+   BACKEND_URL         = "http://localhost:3001"           # 🛡️ URL of our Elysia backend (HTTP)
+   BACKEND_WS_URL      = "ws://localhost:3001"             # 🎯 URL of our Elysia backend (WebSocket)
+
+   # External
+   GEMINI_API_KEY      = https://aistudio.google.com/
+   ```
+
+## ▶️ Running the Bot
+
+### Development mode
 
 ```bash
 bun run dev
 ```
 
-## 🎯 Usage
+### Production mode
 
-Once Yae is running, invite the bot to your Discord server and use the following commands:
+```bash
+bun run start
+```
 
-| Command           | Description                         |
-|-------------------|------------------------------------|
-| `/play <song>`    | 🎵 Play a song                     |
-| `/pause`          | ⏸️ Pause current track             |
-| `/resume`         | ▶️ Resume playback                 |
-| `/stop`           | ⏹️ Stop playback and clear queue   |
-| `/destroy`        | 🗑️ Destroy music player            |
+## 🔧 Useful Scripts
 
-## 🛠️ Built With
+```bash
+bun run dev
+bun run start
+bun run check
+bun run remove-commands
+```
 
-- **Bun** - Runtime environment
-- **Seyfert** - Discord Framework
-- **Lavalink** - Audio delivery system
-- **Docker** - Containerization
+- `bun run check` runs Biome formatting/lint checks.
+- `bun run remove-commands` removes registered slash commands.
 
-## 🤝 Contributing
+## 📝 Notes
 
-Contributions are always welcome! 
+- Slash commands are uploaded from `src/app.ts` into `commands.json` at runtime.
+- Music playback requires a working Lavalink instance.
 
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+## 📜 License
 
-## 📄 MIT License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 👨‍💻 Authors
-
-- [@OuOSama](https://www.github.com/OuOSama) - *Initial work & Development*
-
-## 🙏 Acknowledgments
-
-- Thanks to the [Lavalink team](https://github.com/lavalink-devs) for the amazing audio server
-- Seyfert [community](https://discord.com/invite/hEeJNaSqnS) for the excellent documentation
-- All contributors who help improve Yae
-
-<div align="center">
-  <b>YAE Sama!</b>
-</div>
+This project is licensed under the MIT License.
