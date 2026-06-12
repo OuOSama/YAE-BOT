@@ -26,6 +26,10 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-       # 4. lint + format
+      # 4. lint + format
       - name: Run Biome lint & format
         run: bun run check
+
+      # 5. test
+      - name: Run tests
+        run: bun test
