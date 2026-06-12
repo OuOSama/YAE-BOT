@@ -15,6 +15,7 @@
 		"typescript": "^5.9.3"
 	},
 	"dependencies": {
+		"@google/genai": "^2.8.0",
 		"kazagumo": "^3.4.3",
 		"seyfert": "^4.3.0",
 		"shoukaku": "^4.3.0"
