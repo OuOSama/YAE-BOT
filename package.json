@@ -1,6 +1,6 @@
 {
 	"name": "yae-bot",
-	"description": "🚀 Your Yae Discord Companion.",
+	"description": "🚀 A lightweight, high-performance Yae Discord Companion powered by Bun & Seyfert",
 	"author": "OuOSama",
 	"type": "module",
 	"private": true,
@@ -21,8 +21,8 @@
 		"shoukaku": "^4.3.0"
 	},
 	"scripts": {
-		"dev": "bun run --bun ./watch.config.ts",
-		"start": "bun run ./src/app.js",
+		"dev": "NODE_ENV=development bun --bun run ./watch.config.ts",
+		"start": "NODE_ENV=production bun --bun run ./src/app.js",
 		"check": "bunx biome check --write",
 		"prepare": "bunx husky",
 		"remove-commands": "bun run ./src/script/remove_commandst.ts"
