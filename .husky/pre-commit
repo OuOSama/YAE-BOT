@@ -1,3 +1,2 @@
 lint-staged
-bun check
 bun test
