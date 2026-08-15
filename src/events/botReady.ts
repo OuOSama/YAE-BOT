@@ -1,5 +1,3 @@
-// src/events/botReady.ts
-
 import { createEvent } from 'seyfert'
 
 export default createEvent({
@@ -9,5 +7,6 @@ export default createEvent({
 	run(user, client) {
 		//  We can use client.logger to display messages in the console.
 		client.logger.info(`${user.username} is ready`)
+		client.hoshimi.init({ id: user.id, username: user.username })
 	},
 })

@@ -1,23 +1,22 @@
-// src/app.ts
+import type { ParseClient } from 'seyfert'
+import { MusicClient } from './utils/MusicClient'
 
-import { Client } from 'seyfert'
-import createKazagumo from '@/managers/createKazagumo.js'
-
-const client = new Client({
+const client = new MusicClient({
 	commands: {
-		prefix: () => {
-			// here you can handle whatever prefixes you want depending on the message data.
-			return ['!', '?', '.']
-		},
+		prefix: () => ['!', '?', '.'],
 	},
 })
-
-//Basic configuration, perfect for this case
-client.kazagumo = createKazagumo()
+client.setServices({ cache: { disabledCache: { voiceStates: false } } })
 
 client
 	.start()
 	.then(() => client.uploadCommands({ cachePath: './commands.json' }))
 	.catch((err) => client.logger.error('Failed to start client', err))
+
+declare module 'seyfert' {
+	interface SeyfertRegistry {
+		client: ParseClient<MusicClient>
+	}
+}
 
 export { client }
