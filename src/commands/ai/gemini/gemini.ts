@@ -1,5 +1,3 @@
-// src/commands/ai/gemini/gemini.ts
-
 import { GoogleGenAI } from '@google/genai'
 import {
 	Command,

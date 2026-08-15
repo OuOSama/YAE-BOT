@@ -1,5 +1,3 @@
-// src/events/guildDelete.ts
-
 import { createEvent } from 'seyfert'
 
 export default createEvent({

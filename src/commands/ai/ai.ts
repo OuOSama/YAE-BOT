@@ -1,5 +1,3 @@
-// src/commands/ai/ai.ts
-
 import {
 	Command,
 	type CommandContext,

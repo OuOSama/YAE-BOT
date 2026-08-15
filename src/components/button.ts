@@ -1,5 +1,3 @@
-// src/components/button.ts
-
 import { ComponentCommand, type ComponentContext } from 'seyfert'
 import { MessageFlags } from 'seyfert/lib/types'
 

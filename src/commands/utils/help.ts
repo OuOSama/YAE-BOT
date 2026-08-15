@@ -1,5 +1,3 @@
-// src/commands/utils/help.ts
-
 import { Command, type CommandContext, Declare, Embed } from 'seyfert'
 import { MessageFlags } from 'seyfert/lib/types'
 import { getCommandList } from '@/functions/getCommandList/getCommandList'

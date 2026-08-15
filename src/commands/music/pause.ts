@@ -1,9 +1,0 @@
-// src/commands/music/pause.ts
-
-import type { KazagumoPlayer } from 'kazagumo'
-import type { CommandContext } from 'seyfert/lib/commands'
-
-export async function Pause(player: KazagumoPlayer, ctx: CommandContext) {
-	player.pause(true)
-	return ctx.write({ content: '⏸️ Paused.' })
-}

@@ -1,40 +1,124 @@
-// src/commands/music/play.ts
+import { LoadType } from 'hoshimi'
+import {
+	Command,
+	type CommandContext,
+	createStringOption,
+	Declare,
+	MessageFlags,
+	Options,
+} from 'seyfert'
 
-import type { KazagumoPlayer } from 'kazagumo'
-import type { CommandContext, UsingClient } from 'seyfert'
-import type { options } from './music'
+const options = {
+	query: createStringOption({
+		description: 'Enter a song name or url.',
+		required: true,
+	}),
+}
 
-export async function Play(
-	player: KazagumoPlayer,
-	ctx: CommandContext<typeof options>,
-	client: UsingClient,
-) {
-	const { play } = ctx.options
-	if (!play) return
+@Declare({
+	name: 'play',
+	description: 'Play music.',
+})
+@Options(options)
+export default class PlayCommand extends Command {
+	async run(ctx: CommandContext<typeof options>) {
+		const { options, client, guildId, channelId, member, author } = ctx
+		const { query } = options
 
-	// ⚡ เร็วขึ้น: defer ก่อนเพื่อให้ interaction ไม่ timeout
-	await ctx.deferReply()
+		if (!guildId || !member) return
 
-	// ⚡ เร็วขึ้น: search แบบไม่ resolve metadata เพิ่ม (Kazagumo มี options ซ่อนอยู่)
-	const result = await client.kazagumo.search(play)
+		// ✅ ใช้ REST API ดึง Voice State โดยตรง
+		let voiceChannelId: string | null = null
+		let voiceState: any = null
 
-	if (!result.tracks.length) {
-		return ctx.editOrReply({ content: 'No results found! 🔍' })
+		try {
+			// ดึง Voice State จาก REST API
+			voiceState = await client.proxy
+				.guilds(guildId)
+				['voice-states'](member.id)
+				.get()
+			voiceChannelId = voiceState?.channel_id || null
+		} catch (error) {
+			// ถ้า API error (404) ให้ลองเช็คจาก cache แทน
+			const cached = await client.cache.voiceStates?.get(member.id, guildId)
+			if (cached) {
+				voiceChannelId = cached.channelId || null
+			}
+		}
+
+		// ถ้ายังไม่มี voice channel ให้เช็คจาก ctx.member โดยตรง
+		if (!voiceChannelId) {
+			voiceChannelId = (ctx.member as any)?.voice?.channel_id || null
+		}
+
+		if (!voiceChannelId) {
+			return ctx.write({
+				content: 'You must be in a voice channel to play music.',
+				flags: MessageFlags.Ephemeral,
+			})
+		}
+
+		// ตรวจสอบว่า Bot อยู่ใน Voice Channel เดียวกันหรือไม่
+		let botVoiceChannelId: string | null = null
+		try {
+			const me = await ctx.me()
+			if (me) {
+				const botVoiceState = await client.proxy
+					.guilds(guildId)
+					['voice-states'](client.me.id)
+					.get()
+				botVoiceChannelId = botVoiceState?.channel_id || null
+			}
+		} catch {
+			// ถ้า API error ให้เช็คจาก cache
+			const cached = await client.cache.voiceStates?.get(client.me.id, guildId)
+			if (cached) {
+				botVoiceChannelId = cached.channelId || null
+			}
+		}
+
+		if (botVoiceChannelId && botVoiceChannelId !== voiceChannelId) {
+			return ctx.write({
+				content: 'You must be in the same voice channel as me.',
+				flags: MessageFlags.Ephemeral,
+			})
+		}
+
+		// สร้าง Player
+		const player = client.hoshimi.createPlayer({
+			guildId: guildId,
+			textId: channelId,
+			voiceId: voiceChannelId,
+			volume: 100,
+		})
+
+		await player.connect()
+
+		// ค้นหาเพลง
+		const { loadType, tracks, playlist } = await player.search({
+			query,
+			requester: author,
+		})
+
+		if (loadType === LoadType.Empty || loadType === LoadType.Error) {
+			return ctx.write({ content: 'No results found!' })
+		}
+
+		if (loadType === LoadType.Playlist) {
+			await player.queue.add(tracks)
+		} else {
+			await player.queue.add(tracks[0])
+		}
+
+		if (!player.playing) {
+			await player.play()
+		}
+
+		return ctx.write({
+			content:
+				loadType === LoadType.Playlist
+					? `Queued ${tracks.length} tracks from ${playlist?.info.name}`
+					: `Queued ${tracks[0].info.title}`,
+		})
 	}
-
-	// 🌀 playlist load ทีเดียว (ไม่ add ที่ละ track → ช้า)
-	if (result.type === 'PLAYLIST') {
-		player.queue.add(result.tracks)
-	} else {
-		player.queue.add(result.tracks[0])
-	}
-
-	// 🔥 เพิ่ม logic anti-double-play
-	if (!player.playing && !player.paused) {
-		await player.play(player.queue[0], { replaceCurrent: true })
-	}
-
-	return ctx.editOrReply({
-		content: `🎵 Now playing: **${result.tracks[0].title}**`,
-	})
 }

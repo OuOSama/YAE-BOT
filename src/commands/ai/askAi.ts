@@ -1,5 +1,3 @@
-// src/commands/ai/chat.ts
-
 /**
  * Sends user text to backend and returns a response from AI service
  *
