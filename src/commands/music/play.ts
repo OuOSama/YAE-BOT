@@ -29,16 +29,15 @@ export default class PlayCommand extends Command {
 
 		// ✅ ใช้ REST API ดึง Voice State โดยตรง
 		let voiceChannelId: string | null = null
-		let voiceState: any = null
 
 		try {
 			// ดึง Voice State จาก REST API
-			voiceState = await client.proxy
+			const voiceState = await client.proxy
 				.guilds(guildId)
 				['voice-states'](member.id)
 				.get()
 			voiceChannelId = voiceState?.channel_id || null
-		} catch (error) {
+		} catch {
 			// ถ้า API error (404) ให้ลองเช็คจาก cache แทน
 			const cached = await client.cache.voiceStates?.get(member.id, guildId)
 			if (cached) {
@@ -48,7 +47,10 @@ export default class PlayCommand extends Command {
 
 		// ถ้ายังไม่มี voice channel ให้เช็คจาก ctx.member โดยตรง
 		if (!voiceChannelId) {
-			voiceChannelId = (ctx.member as any)?.voice?.channel_id || null
+			const memberVoice = ctx.member as unknown as {
+				voice?: { channel_id?: string | null }
+			}
+			voiceChannelId = memberVoice.voice?.channel_id || null
 		}
 
 		if (!voiceChannelId) {

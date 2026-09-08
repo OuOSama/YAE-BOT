@@ -6,7 +6,6 @@ const client = new MusicClient({
 		prefix: () => ['!', '?', '.'],
 	},
 })
-client.setServices({ cache: { disabledCache: { voiceStates: false } } })
 
 client
 	.start()
