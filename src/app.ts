@@ -17,5 +17,3 @@ declare module 'seyfert' {
 		client: ParseClient<MusicClient>
 	}
 }
-
-export { client }

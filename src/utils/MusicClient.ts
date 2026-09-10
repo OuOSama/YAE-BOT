@@ -10,10 +10,10 @@ export class MusicClient extends Client {
 		},
 		nodes: [
 			{
-				host: 'lavalinkv4.serenetia.com',
-				port: 443,
-				password: 'https://seretia.link/discord',
-				secure: true,
+				host: process.env.LAVALINK_HOST,
+				port: Number(process.env.LAVALINK_PORT),
+				password: process.env.LAVALINK_PASSWORD,
+				secure: true, // Set to true if your Lavalink server uses HTTPS
 			},
 		],
 	})

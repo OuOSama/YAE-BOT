@@ -11,5 +11,9 @@ declare module 'bun' {
 
 		// External
 		GEMINI_API_KEY: string
+
+		LAVALINK_HOST: string
+		LAVALINK_PORT: number
+		LAVALINK_PASSWORD: string
 	}
 }

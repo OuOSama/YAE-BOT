@@ -1,5 +1,10 @@
-import { client } from '@/app'
+import { createEvent } from 'seyfert'
 
-client.hoshimi.on('nodeReady', () => {
-	console.log("i'm ready!")
+export default createEvent({
+	data: { name: 'raw' },
+	run(_payload, client) {
+		client.hoshimi.on('nodeReady', () => {
+			console.log('Node is ready')
+		})
+	},
 })
