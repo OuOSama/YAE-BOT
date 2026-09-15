@@ -49,7 +49,7 @@ src/
 | Bun | Runtime and package management |
 | TypeScript | Main programming language |
 | Seyfert | Discord bot framework |
-| Kazagumo + Shoukaku | Lavalink music playback support |
+| hoshimi | Lavalink music support |
 | Biome | Formatting and linting |
 
 ## 📋 Prerequisites
